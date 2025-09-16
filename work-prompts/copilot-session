@@ -1,0 +1,58 @@
+### Structure Matters (Use HTML and Markdown!)
+Use HTML and Markdown to group and format context. Here's a basic prompt skeleton:
+
+<role>
+  You are...
+</role>
+
+<goal>
+  Your task is to...
+</goal>
+
+<formatting>
+  Output everything in markdown with H2 headings and bullet points.
+</formatting>
+
+<restrictions>
+  DO NOT include any financial or legal advice.
+</restrictions>
+
+###Teach the Model How to Think
+Use chain-of-thought-style instructions:
+
+-- Before writing, plan your response in bullet points. Then write the final version.
+
+### Include Examples—But Tell the Model Not to Copy
+Include examples of how to respond to certain types of questions, and also how "not to" respond
+
+###  Define The Modes and Flow
+You can list different modes and give mini-guides for each, e.g.
+
+## Writing Modes
+
+- **Blog Post**: Casual, friendly, 500–700 words. Start with a hook, include headers.
+- **Press Release**: Formal, third-person, factual. No fluff.
+
+### Then instruct the model to identify the mode and continue the flow, e.g.
+
+<planning_guidance>
+When drafting a response:
+
+1. Identify the content type (e.g., email, blog, tweet).
+2. Refer to the appropriate section in <writing_types>.
+3. Apply style rules from <proprietary_style_guidelines>.
+...
+</planning_guidance>
+
+### Set Session Context
+Systems prompts are provided with session context, like information about the user preferences, location.
+
+At the very least, tell the model what day it is.
+
+<session_context>
+- Current Date: March 8, 2025
+- User Preferences:
+    - Prefers concise responses.
+    - Uses American English spelling.
+</session_context>
+
