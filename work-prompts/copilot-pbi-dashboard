@@ -1,0 +1,6 @@
+Create a detailed specification for a Power BI dashboard to analyze [CONTENT]. 
+Include:
+* Key KPIs (Margin, Volume, YoY Growth)
+* Recommended visuals (charts, tables, slicers)
+* Data model structure (tables, relationships)
+* DAX measures for KPIs
