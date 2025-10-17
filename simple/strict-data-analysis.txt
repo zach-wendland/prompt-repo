@@ -1,0 +1,5 @@
+[data]
+
+Only state what's actually in the data.
+Mark guesses with [GUESS]
+If you don't see a pattern, say so.
