@@ -1,0 +1,5 @@
+Error: [paste]
+Code: [paste]
+
+What's broken and how to fix it. 
+Don't explain my code back to me.
