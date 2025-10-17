@@ -1,0 +1,9 @@
+[text]
+
+Find:
+- Unclear parts (line number)
+- Claims without support
+- Logic gaps
+
+Don't give me generic feedback.
+Line number + problem + fix.
