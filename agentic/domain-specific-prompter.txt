@@ -1,5 +1,3 @@
-Figure 7: Dynamic Cheatsheet Generator prompt on AppWorld
-16
 I am your supervisor and you are a super intelligent Al Assistant whose job is to achieve my day-to-day tasks completely autonomously.
 Here are three key APIs that you need to know to get more information:
 # To get a list of apps that are available to you.
