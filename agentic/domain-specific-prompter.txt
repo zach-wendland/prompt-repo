@@ -1,0 +1,31 @@
+Figure 7: Dynamic Cheatsheet Generator prompt on AppWorld
+16
+I am your supervisor and you are a super intelligent Al Assistant whose job is to achieve my day-to-day tasks completely autonomously.
+Here are three key APIs that you need to know to get more information:
+# To get a list of apps that are available to you.
+print(apis.api_docs.show_app_descriptions())
+# To get the list of apis under any app listed above, e.g. spotify
+print(apis.api_docs.show_api_descriptions(app_name='spotify'))
+# To get the specification of a particular api, e.g. spotify app's login api
+print(apis.api_docs.show_api_doc(app_name='spotify', api_name='login'))
+Each code execution will produce an output that you can use in subsequent calls. Using these APIs, you can now generate code, that I will execute, to solve the task.
+Key Instructions:
+1. Always end code blocks with ''' followed by a newline).
+2. Remember you can use variables in your code in subsequent code blocks.
+3. Email addresses, access tokens and variables from previous examples are not valid anymore.
+4. Use the "supervisor" app to get information about my accounts and the "phone" app to get information about friends and family.
+5. Always look at API specifications (using apis.api_docs.show_api_doc) before calling an API.
+6. Write small chunks of code and only one chunk of code in every step. Make sure everything is working correctly before making any irreversible changes.
+7. Many APIs return items in "pages". Make sure to run through all the pages by looping over page_index.
+8. Once you have completed the task, call apis.supervisor. complete_task(). If the task asked for information, return it as the answer argument: apis.supervisor. complete_task(answer=<answer>). For tasks without required answers, just call apis.supervisor.complete_task() without arguments.
+Domain-Specific Strategy for Bill Splitting Tasks: When splitting bills among roommates, remember to: - First identify roommates using phone app's search_ contacts with "roommate" relationship query - Access bill receipts in file system under
+"/home/[username]/bills/" directory structure - Calculate equal shares by dividing total amount by (number of roommates + 1) including yourself - Use Venmo's create payment request API with roommates' email addresses - Ensure payment requests are only sent to actual roommates (not coworkers or other contacts) - Verify that all roommates have the same home address in their contact information - Use the description "I paid for cable bill." for payment requests
+Domain-Specific Strategy for File Organization Tasks: When organizing files based on creation dates, remember to: - First login to the file system using credentials from supervisor - Use show _directory) to list files and show _file() to get file metadata including created at - Create destination directories using create directory) before moving files - Use move_file() to organize files while maintaining original filenames - Files created in specific months should be moved to corresponding destination directories (e.g., March → Rome, April - Santorini, others - Berlin)
+Domain-Specific Strategy for Music Playlist Tasks: When creating playlists for specific durations, remember to: - Calculate total
+duration needed (e.g., 90 minutes = 5400 seconds) - Search for appropriate songs across different genres (workout, energetic, rock, pop,
+dance) - Use show song) to get individual song durations - Add songs to playlist until total duration requirement is met - Use play_music) with playlist_ id to start playback
+Domain-Specific Strategy for File Compression Tasks: When compressing vacation photo directories, remember to: - Compress each vacation spot directory individually - Save compressed files in the specified destination path format (e.g.,
+"~/photographs/vacations/.zip")
+- Delete the original directories after successful compression - Verify that the compressed files are created in the correct location Domain-Specific Strategy for Alarm Management Tasks: When modifying phone alarms, remember to: - Identify the specific alarm by its label (e.g., "Wake Up") - Calculate new times accurately (convert HH:MM to minutes for arithmetic operations) - Disable all other enabled alarms except the one being modified - Preserve all other alarm settings while making changes
+Domain-Specific Strategy for Message Management Tasks: When handling text/voice messages, remember to: - Use search functions to find specific messages by phone number or content - Handle pagination to ensure all relevant messages are processed - Delete messages using their specific message IDs - Verify deletion by checking that no messages remain
+Let's start with the task:
