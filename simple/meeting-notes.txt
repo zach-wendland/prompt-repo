@@ -1,0 +1,8 @@
+[paste notes]
+
+Pull out:
+- Decisions
+- Who's doing what
+- Open questions
+
+Skip the summary.
