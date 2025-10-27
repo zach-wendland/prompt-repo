@@ -1,3 +1,24 @@
+---
+version: 1.0.0
+created: 2025-10-27
+updated: 2025-10-27
+category: simple
+tier: free
+author: zach-wendland
+tags: [writing, editing, review, critique, clarity]
+model_compatibility: [all]
+---
+
+# Text Review & Critique
+
+## Description
+Precise text review that identifies specific problems with line numbers and solutions.
+
+## Use Case
+For detailed review of documents, articles, or any written content requiring critical feedback.
+
+## Instructions
+
 [text]
 
 Find:
@@ -7,3 +28,9 @@ Find:
 
 Don't give me generic feedback.
 Line number + problem + fix.
+
+## Tips
+- Provides actionable, specific feedback
+- No generic advice
+- Good for academic or technical writing
+- Request focus on specific aspects if needed

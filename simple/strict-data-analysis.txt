@@ -1,5 +1,32 @@
+---
+version: 1.0.0
+created: 2025-10-27
+updated: 2025-10-27
+category: simple
+tier: free
+author: zach-wendland
+tags: [data-analysis, statistics, analytics, factual, no-speculation]
+model_compatibility: [all]
+---
+
+# Strict Data Analysis
+
+## Description
+Ultra-factual data analysis that distinguishes between what's in the data versus speculation.
+
+## Use Case
+When you need objective, evidence-based data analysis without assumptions.
+
+## Instructions
+
 [data]
 
 Only state what's actually in the data.
 Mark guesses with [GUESS]
 If you don't see a pattern, say so.
+
+## Tips
+- Forces AI to be honest about uncertainty
+- Prevents over-interpretation
+- Good for scientific or rigorous analysis
+- Pairs well with hypothesis testing
