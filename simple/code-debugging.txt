@@ -1,5 +1,31 @@
+---
+version: 1.0.0
+created: 2025-10-27
+updated: 2025-10-27
+category: simple
+tier: free
+author: zach-wendland
+tags: [debugging, code-review, error-fixing, development]
+model_compatibility: [all]
+---
+
+# Code Debugging Assistant
+
+## Description
+Direct, no-nonsense code debugging that identifies issues and provides fixes without unnecessary explanations.
+
+## Use Case
+When you have broken code and need quick, actionable solutions without verbose explanations.
+
+## Instructions
+
 Error: [paste]
 Code: [paste]
 
-What's broken and how to fix it. 
+What's broken and how to fix it.
 Don't explain my code back to me.
+
+## Tips
+- Include the full error message for best results
+- Provide relevant code context
+- Specify the programming language if not obvious

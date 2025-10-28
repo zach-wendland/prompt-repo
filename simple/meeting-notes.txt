@@ -1,3 +1,24 @@
+---
+version: 1.0.0
+created: 2025-10-27
+updated: 2025-10-27
+category: simple
+tier: free
+author: zach-wendland
+tags: [meeting-notes, productivity, documentation, action-items]
+model_compatibility: [all]
+---
+
+# Meeting Notes Assistant
+
+## Description
+Extracts key information from meeting notes: decisions, responsibilities, and open questions.
+
+## Use Case
+Quickly structure meeting notes into actionable format without unnecessary summaries.
+
+## Instructions
+
 [paste notes]
 
 Pull out:
@@ -6,3 +27,8 @@ Pull out:
 - Open questions
 
 Skip the summary.
+
+## Tips
+- Works with raw transcripts or unstructured notes
+- Focuses on action items and accountability
+- No fluff, just what matters
