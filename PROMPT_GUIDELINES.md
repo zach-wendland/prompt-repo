@@ -84,7 +84,6 @@ Expected AI response
 
 Enhance prompts with:
 
-```markdown
 ## Variations
 Different versions for specific scenarios
 
