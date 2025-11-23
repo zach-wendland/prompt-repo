@@ -11,7 +11,6 @@ This document outlines quality standards and best practices for all prompts in t
 - [Prompt Structure](#prompt-structure)
 - [Quality Criteria](#quality-criteria)
 - [Category Standards](#category-standards)
-- [Tier Classification](#tier-classification)
 - [Best Practices](#best-practices)
 - [Common Pitfalls](#common-pitfalls)
 - [Testing Requirements](#testing-requirements)
@@ -33,7 +32,6 @@ This document outlines quality standards and best practices for all prompts in t
 ### 3. Ethical and Safe
 - No harmful applications
 - Respect privacy and consent
-- Follow AI provider guidelines
 - Consider potential misuse
 
 ### 4. Documented and Tested
@@ -96,64 +94,6 @@ Power user tips and techniques
 ## Limitations
 Known issues or constraints
 
-## Related Prompts
-Links to complementary prompts
-
-## Version History
-- v1.1: Added feature X
-- v1.0: Initial release
-```
-
-## Quality Criteria
-
-### Tier 1: Minimum Viable (Free Tier)
-
-✅ **Must Have:**
-- Clear purpose and description
-- Basic usage instructions
-- At least one example
-- Tested with one AI model
-- Proper metadata
-
-✅ **Should Avoid:**
-- Obvious errors or typos
-- Vague instructions
-- Missing examples
-- Untested content
-
-### Tier 2: Professional (Premium)
-
-✅ **Must Have:**
-- All Tier 1 requirements
-- Multiple examples showing range
-- Tested with 2+ AI models
-- Advanced usage tips
-- Clear limitations documented
-- Optimization suggestions
-
-✅ **Should Include:**
-- Variations for different scenarios
-- Troubleshooting guide
-- Related prompts references
-- Performance considerations
-
-### Tier 3: Enterprise (Enterprise)
-
-✅ **Must Have:**
-- All Tier 2 requirements
-- Comprehensive documentation
-- Tested across major AI models
-- Integration guidance
-- Security considerations
-- Compliance notes (if applicable)
-- Support contact information
-
-✅ **Should Include:**
-- Custom modification guide
-- API integration examples
-- Team collaboration notes
-- Usage analytics recommendations
-- ROI considerations
 
 ## Category Standards
 
@@ -184,7 +124,7 @@ Links to complementary prompts
 - Use case: Enterprise, business workflows
 
 **Examples:**
-- SAP data extraction
+- Data extraction
 - ServiceNow RFC creation
 - Technical documentation
 - Business analysis
@@ -208,6 +148,7 @@ Links to complementary prompts
 - Research and analysis pipelines
 - Content generation workflows
 - Data processing chains
+- ETL Pipelines
 
 **Standards:**
 - Clear step-by-step instructions
@@ -235,57 +176,16 @@ Links to complementary prompts
 - Clear value proposition
 - Safe for all audiences (or clearly labeled)
 
-## Tier Classification
-
-### Free Tier Prompts
-
-**Criteria:**
-- Basic utility value
-- Common use cases
-- Minimal customization needed
-- Self-explanatory
-
-**Distribution:**
-- ~30-40% of total prompts
-- Entry-level quality
-- Showcase repository value
-
-### Premium Tier Prompts
-
-**Criteria:**
-- Specialized knowledge required
-- Advanced techniques
-- Significant time savings
-- Professional applications
-
-**Distribution:**
-- ~50-60% of total prompts
-- Professional quality
-- Regular updates included
-
-### Enterprise Tier Prompts
-
-**Criteria:**
-- Mission-critical applications
-- Custom development required
-- Ongoing support needed
-- Compliance considerations
-
-**Distribution:**
-- ~10-20% of total prompts
-- Enterprise quality
-- Dedicated support
-
 ## Best Practices
 
 ### 1. Role Definition
 
-❌ **Weak:**
+**Weak:**
 ```
 Help me with data analysis
 ```
 
-✅ **Strong:**
+**Strong:**
 ```
 You are an expert data analyst with 15 years of experience in
 statistical analysis and business intelligence. Your specialty is
@@ -294,12 +194,12 @@ translating complex data into actionable business insights.
 
 ### 2. Context Setting
 
-❌ **Weak:**
+**Weak:**
 ```
 Analyze this data
 ```
 
-✅ **Strong:**
+**Strong:**
 ```
 <Context>
 You are analyzing Q4 sales data for a B2B SaaS company. The data
@@ -310,12 +210,12 @@ performance. Your analysis will inform the annual budget planning.
 
 ### 3. Clear Instructions
 
-❌ **Weak:**
+**Weak:**
 ```
 Make it better
 ```
 
-✅ **Strong:**
+**Strong:**
 ```
 <Instructions>
 1. Review the dataset for anomalies or outliers
@@ -328,12 +228,12 @@ Make it better
 
 ### 4. Output Specification
 
-❌ **Weak:**
+**Weak:**
 ```
 Give me the results
 ```
 
-✅ **Strong:**
+**Strong:**
 ```
 <OutputFormat>
 Provide results in this structure:
@@ -347,7 +247,7 @@ Provide results in this structure:
 
 ### 5. Constraints and Guardrails
 
-✅ **Include:**
+**Include:**
 ```
 <Constraints>
 - Focus only on quantitative data, no speculation
@@ -359,7 +259,7 @@ Provide results in this structure:
 
 ### 6. Examples and Demonstrations
 
-✅ **Provide:**
+**Provide:**
 ```
 <Example>
 Input: [Sales data CSV]
@@ -377,7 +277,7 @@ Q4 sales reached $2.3M (15% YoY growth)...
 
 ## Common Pitfalls
 
-### ❌ Avoid These Mistakes
+### Avoid These Mistakes
 
 1. **Vague Instructions**
    - "Do your best"
@@ -414,40 +314,6 @@ Q4 sales reached $2.3M (15% YoY growth)...
    - Broken examples
    - No version tracking
 
-## Testing Requirements
-
-### Minimum Testing (Free Tier)
-
-Test with at least **1 model**:
-- ✅ GPT-4 / ChatGPT, or
-- ✅ Claude 3 (Sonnet/Opus), or
-- ✅ Gemini Pro
-
-Document:
-- Model tested
-- Date tested
-- Results summary
-
-### Standard Testing (Premium)
-
-Test with at least **2 models**:
-- ✅ GPT-4 / ChatGPT
-- ✅ Claude 3 (Sonnet/Opus)
-- Optional: Gemini, others
-
-Document:
-- All models tested
-- Comparative performance notes
-- Model-specific tips
-
-### Comprehensive Testing (Enterprise)
-
-Test with **3+ models**:
-- ✅ GPT-4 / ChatGPT
-- ✅ Claude 3 (Sonnet/Opus)
-- ✅ Gemini Pro
-- ✅ Other relevant models
-
 Document:
 - Detailed comparison
 - Strengths/weaknesses per model
@@ -465,45 +331,6 @@ For each test:
 - [ ] Performance is acceptable
 - [ ] No security or ethical issues
 
-## Versioning Guidelines
-
-### Semantic Versioning
-
-Use format: `MAJOR.MINOR.PATCH`
-
-- **MAJOR (1.x.x):** Breaking changes, complete rewrites
-- **MINOR (x.1.x):** New features, significant improvements
-- **PATCH (x.x.1):** Bug fixes, minor tweaks, typos
-
-### Examples
-
-- `1.0.0` - Initial release
-- `1.1.0` - Added advanced examples
-- `1.1.1` - Fixed typo in instructions
-- `2.0.0` - Complete restructure for new model
-
-### When to Update Version
-
-**PATCH update:**
-- Fix typos or formatting
-- Clarify existing instructions
-- Update example outputs
-- Minor improvements
-
-**MINOR update:**
-- Add new examples
-- Add new features or options
-- Improve documentation
-- Add model compatibility
-
-**MAJOR update:**
-- Change core structure
-- Break backward compatibility
-- Complete rewrite
-- New methodology
-
-## Quality Review Checklist
-
 Before submitting a prompt:
 
 ### Content Quality
@@ -511,7 +338,6 @@ Before submitting a prompt:
 - [ ] Appropriate complexity for tier
 - [ ] Proper grammar and spelling
 - [ ] Professional tone (for work prompts)
-- [ ] Ethical and safe applications
 
 ### Documentation
 - [ ] Complete metadata
