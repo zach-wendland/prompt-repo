@@ -1,0 +1,3 @@
+Show me Emails and Teams conversations that needs my action or attention and I have not replied them yet.
+Show a table with sender, subject, date, and importance. Prioritize messages from my manager or their manager. 
+For Teams conversations show 🧑‍🧑‍🧒‍🧒, for emails show ✉️. If I was mentioned show up ⬆️, else show 🔔
