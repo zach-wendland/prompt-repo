@@ -94,7 +94,6 @@ Power user tips and techniques
 ## Limitations
 Known issues or constraints
 
-
 ## Category Standards
 
 ### Simple Prompts
