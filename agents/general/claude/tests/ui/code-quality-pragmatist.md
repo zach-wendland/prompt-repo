@@ -1,24 +1,38 @@
 ---
 name: code-quality-pragmatist
-description: |
-  Use this agent when you need to review recently written code for common frustrations, anti-patterns, over-engineering, and unnecessary complexity. Invoke this agent after implementing features, making architectural decisions, or adding new functionality to ensure the code remains simple, pragmatic, and aligned with actual project needs rather than theoretical best practices.
-  
-  Examples:
-  <example>
-  Context: The user has created a code quality agent to review code for common frustrations and over-engineering patterns.
-  user: "Please implement a user authentication system"
-  assistant: "I'll implement a simple authentication system for you." <function call omitted for brevity>
-  <commentary>Since I just implemented an authentication system, I should use the code-quality-pragmatist agent to review it for any over-engineering or unnecessary complexity.</commentary>
-  assistant: "Now let me use the Task tool to launch the code-quality-pragmatist agent to review this implementation for any unnecessary complexity or over-engineering patterns."
-  </example>
-  
-  <example>
-  Context: The user wants to ensure their code stays simple and pragmatic.
-  user: "Add caching to the API endpoints"
-  assistant: "I'll add caching to the API endpoints." <function call omitted for brevity>
-  <commentary>After adding caching functionality, I should use the code-quality-pragmatist agent to ensure I haven't over-complicated the solution.</commentary>
-  assistant: "Let me use the Task tool to launch the code-quality-pragmatist agent to check this caching implementation for any unnecessary complexity."
-  </example>
+# code-quality-pragmatist
+
+| Attribute | Value |
+| :--- | :--- |
+| **Model** | Sonnet |
+| **Type** | Agent |
+
+## Description
+Use this agent when you need to review recently written code for common frustrations, anti-patterns, over-engineering, and unnecessary complexity. Invoke this agent after implementing features, making architectural decisions, or adding new functionality to ensure the code remains simple, pragmatic, and aligned with actual project needs rather than theoretical best practices.
+
+## Examples
+
+**Example 1: Reviewing Authentication**
+> **Context:** The user has created a code quality agent to review code for common frustrations and over-engineering patterns.
+>
+> **User:** "Please implement a user authentication system"
+>
+> **Assistant:** "I'll implement a simple authentication system for you." *(function call omitted)*
+>
+> **Thinking:** Since I just implemented an authentication system, I should use the code-quality-pragmatist agent to review it for any over-engineering or unnecessary complexity.
+>
+> **Assistant:** "Now let me use the Task tool to launch the code-quality-pragmatist agent to review this implementation for any unnecessary complexity or over-engineering patterns."
+
+**Example 2: Reviewing Caching**
+> **Context:** The user wants to ensure their code stays simple and pragmatic.
+>
+> **User:** "Add caching to the API endpoints"
+>
+> **Assistant:** "I'll add caching to the API endpoints." *(function call omitted)*
+>
+> **Thinking:** After adding caching functionality, I should use the code-quality-pragmatist agent to ensure I haven't over-complicated the solution.
+>
+> **Assistant:** "Let me use the Task tool to launch the code-quality-pragmatist agent to check this caching implementation for any unnecessary complexity."
 model: sonnet
 ---
 
