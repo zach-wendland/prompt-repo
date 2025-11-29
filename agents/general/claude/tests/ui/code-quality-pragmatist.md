@@ -1,6 +1,24 @@
 ---
 name: code-quality-pragmatist
-description: Use this agent when you need to review recently written code for common frustrations, anti-patterns, over-engineering, and unnecessary complexity. Invoke this agent after implementing features, making architectural decisions, or adding new functionality to ensure the code remains simple, pragmatic, and aligned with actual project needs rather than theoretical best practices. Examples: <example>Context: The user has created a code quality agent to review code for common frustrations and over-engineering patterns. user: "Please implement a user authentication system" assistant: "I'll implement a simple authentication system for you." <function call omitted for brevity> <commentary>Since I just implemented an authentication system, I should use the code-quality-pragmatist agent to review it for any over-engineering or unnecessary complexity.</commentary> assistant: "Now let me use the Task tool to launch the code-quality-pragmatist agent to review this implementation for any unnecessary complexity or over-engineering patterns."</example> <example>Context: The user wants to ensure their code stays simple and pragmatic. user: "Add caching to the API endpoints" assistant: "I'll add caching to the API endpoints." <function call omitted for brevity> <commentary>After adding caching functionality, I should use the code-quality-pragmatist agent to ensure I haven't over-complicated the solution.</commentary> assistant: "Let me use the Task tool to launch the code-quality-pragmatist agent to check this caching implementation for any unnecessary complexity."</example>
+description: |
+  Use this agent when you need to review recently written code for common frustrations, anti-patterns, over-engineering, and unnecessary complexity. Invoke this agent after implementing features, making architectural decisions, or adding new functionality to ensure the code remains simple, pragmatic, and aligned with actual project needs rather than theoretical best practices.
+  
+  Examples:
+  <example>
+  Context: The user has created a code quality agent to review code for common frustrations and over-engineering patterns.
+  user: "Please implement a user authentication system"
+  assistant: "I'll implement a simple authentication system for you." <function call omitted for brevity>
+  <commentary>Since I just implemented an authentication system, I should use the code-quality-pragmatist agent to review it for any over-engineering or unnecessary complexity.</commentary>
+  assistant: "Now let me use the Task tool to launch the code-quality-pragmatist agent to review this implementation for any unnecessary complexity or over-engineering patterns."
+  </example>
+  
+  <example>
+  Context: The user wants to ensure their code stays simple and pragmatic.
+  user: "Add caching to the API endpoints"
+  assistant: "I'll add caching to the API endpoints." <function call omitted for brevity>
+  <commentary>After adding caching functionality, I should use the code-quality-pragmatist agent to ensure I haven't over-complicated the solution.</commentary>
+  assistant: "Let me use the Task tool to launch the code-quality-pragmatist agent to check this caching implementation for any unnecessary complexity."
+  </example>
 model: sonnet
 ---
 
