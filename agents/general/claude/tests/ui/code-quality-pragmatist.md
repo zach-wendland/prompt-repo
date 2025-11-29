@@ -2,11 +2,6 @@
 name: code-quality-pragmatist
 # code-quality-pragmatist
 
-| Attribute | Value |
-| :--- | :--- |
-| **Model** | Sonnet |
-| **Type** | Agent |
-
 ## Description
 Use this agent when you need to review recently written code for common frustrations, anti-patterns, over-engineering, and unnecessary complexity. Invoke this agent after implementing features, making architectural decisions, or adding new functionality to ensure the code remains simple, pragmatic, and aligned with actual project needs rather than theoretical best practices.
 
