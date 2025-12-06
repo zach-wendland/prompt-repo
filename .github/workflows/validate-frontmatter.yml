@@ -38,7 +38,7 @@ jobs:
           import yaml
           import re
           from pathlib import Path
-          from datetime import datetime
+          from datetime import datetime, date
 
           REQUIRED_FIELDS = [
               'version', 'created', 'updated', 'category',
@@ -73,8 +73,15 @@ jobs:
 
           def validate_file(file_path):
               """Validate a single prompt file"""
-              with open(file_path, 'r', encoding='utf-8') as f:
-                  content = f.read()
+              try:
+                  with open(file_path, 'r', encoding='utf-8') as f:
+                      content = f.read()
+              except UnicodeDecodeError:
+                  errors.append(f"{file_path}: File is not valid UTF-8 encoded")
+                  return
+              except PermissionError as e:
+                  errors.append(f"{file_path}: Permission denied - {e}")
+                  return
 
               frontmatter_text = extract_frontmatter(content)
 
@@ -107,10 +114,20 @@ jobs:
 
               # Validate dates
               if 'created' in metadata:
-                  validate_date(str(metadata['created']), 'created', file_path)
+                  created_val = metadata['created']
+                  if isinstance(created_val, (date, datetime)):
+                      date_str = created_val.strftime('%Y-%m-%d') if isinstance(created_val, datetime) else created_val.isoformat()
+                  else:
+                      date_str = str(created_val)
+                  validate_date(date_str, 'created', file_path)
 
               if 'updated' in metadata:
-                  validate_date(str(metadata['updated']), 'updated', file_path)
+                  updated_val = metadata['updated']
+                  if isinstance(updated_val, (date, datetime)):
+                      date_str = updated_val.strftime('%Y-%m-%d') if isinstance(updated_val, datetime) else updated_val.isoformat()
+                  else:
+                      date_str = str(updated_val)
+                  validate_date(date_str, 'updated', file_path)
 
               # Check created <= updated
               if 'created' in metadata and 'updated' in metadata:

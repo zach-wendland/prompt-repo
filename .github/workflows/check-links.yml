@@ -30,6 +30,7 @@ jobs:
 
           broken_links = []
           warnings = []
+          repo_root = Path('.').resolve()
 
           def extract_links(content, file_path):
               """Extract markdown links from content"""
@@ -68,8 +69,12 @@ jobs:
 
           def check_file(file_path):
               """Check all links in a markdown file"""
-              with open(file_path, 'r', encoding='utf-8') as f:
-                  content = f.read()
+              try:
+                  with open(file_path, 'r', encoding='utf-8') as f:
+                      content = f.read()
+              except (UnicodeDecodeError, PermissionError) as e:
+                  warnings.append(f"{file_path}: Could not read file - {e}")
+                  return
 
               links = extract_links(content, file_path)
 
@@ -78,6 +83,14 @@ jobs:
 
                   if resolved is None:
                       continue  # External link or anchor only
+
+                  # Verify resolved path is within repository (prevent path traversal)
+                  try:
+                      resolved.relative_to(repo_root)
+                  except ValueError:
+                      line_num = content[:pos].count('\n') + 1
+                      warnings.append(f"{file_path}:{line_num}: Link '{link}' resolves outside repository")
+                      continue
 
                   if not resolved.exists():
                       line_num = content[:pos].count('\n') + 1
