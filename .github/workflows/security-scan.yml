@@ -1,0 +1,122 @@
+name: Security Scan
+
+on:
+  pull_request:
+    paths:
+      - '**.txt'
+      - '**.md'
+      - '**.xml'
+  push:
+    branches:
+      - main
+
+jobs:
+  security-scan:
+    runs-on: ubuntu-latest
+    name: Scan for Secrets and Security Issues
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Full history for better secret detection
+
+      - name: TruffleHog Secret Scan
+        uses: trufflesecurity/trufflehog@main
+        with:
+          path: ./
+          base: ${{ github.event.repository.default_branch }}
+          head: HEAD
+          extra_args: --only-verified
+
+      - name: Custom security checks
+        run: |
+          python - <<'EOF'
+          import os
+          import re
+          import sys
+          from pathlib import Path
+
+          # Patterns to detect
+          PATTERNS = {
+              'api_key': r'(api[_-]?key|apikey)[\s]*[:=][\s]*["\']?[a-zA-Z0-9_\-]{20,}',
+              'secret': r'(secret|password|passwd|pwd)[\s]*[:=][\s]*["\']?[^"\'\s]{8,}',
+              'token': r'(token|auth)[\s]*[:=][\s]*["\']?[a-zA-Z0-9_\-]{20,}',
+              'bearer': r'Bearer\s+[a-zA-Z0-9_\-\.]+',
+              'openai_key': r'sk-[a-zA-Z0-9]{48}',
+              'aws_key': r'AKIA[0-9A-Z]{16}',
+              'private_key': r'-----BEGIN (RSA |EC )?PRIVATE KEY-----',
+              'env_var_pattern': r'[A-Z_]{3,}[\s]*=[\s]*["\']?[^"\'\s]{8,}',
+          }
+
+          WHITELIST_PATTERNS = [
+              r'\[YOUR_API_KEY\]',
+              r'\[INSERT_API_KEY\]',
+              r'\{\{.*?\}\}',  # Template variables
+              r'example\.com',
+              r'user@example\.com',
+              r'<.*?>',  # XML/HTML tags
+          ]
+
+          findings = []
+
+          def is_whitelisted(line):
+              """Check if line matches whitelist patterns (placeholders)"""
+              for pattern in WHITELIST_PATTERNS:
+                  if re.search(pattern, line, re.IGNORECASE):
+                      return True
+              return False
+
+          def scan_file(file_path):
+              """Scan file for security issues"""
+              try:
+                  with open(file_path, 'r', encoding='utf-8', errors='ignore') as f:
+                      lines = f.readlines()
+
+                  for line_num, line in enumerate(lines, 1):
+                      # Skip whitelisted lines
+                      if is_whitelisted(line):
+                          continue
+
+                      for pattern_name, pattern in PATTERNS.items():
+                          matches = re.finditer(pattern, line, re.IGNORECASE)
+                          for match in matches:
+                              # Additional check: avoid false positives on documentation
+                              if 'example' in line.lower() or 'sample' in line.lower():
+                                  continue
+
+                              findings.append({
+                                  'file': str(file_path),
+                                  'line': line_num,
+                                  'type': pattern_name,
+                                  'match': match.group(0)[:50]  # Truncate for safety
+                              })
+
+          # Scan all text files
+          for ext in ['.txt', '.md', '.xml', '.json', '.yml', '.yaml']:
+              for file_path in Path('.').rglob(f'*{ext}'):
+                  # Skip certain directories
+                  if any(part in str(file_path) for part in ['.git', 'node_modules', '.github/workflows']):
+                      continue
+
+                  scan_file(file_path)
+
+          # Report findings
+          if findings:
+              print("🚨 SECURITY ISSUES DETECTED:\n")
+              for finding in findings:
+                  print(f"  {finding['file']}:{finding['line']}")
+                  print(f"    Type: {finding['type']}")
+                  print(f"    Match: {finding['match']}")
+                  print()
+
+              print(f"\n💥 Found {len(findings)} potential security issue(s)")
+              print("\nIf these are false positives (placeholders), ensure they use format:")
+              print("  - [YOUR_API_KEY]")
+              print("  - {{variable}}")
+              print("  - <placeholder>")
+              sys.exit(1)
+          else:
+              print("✅ No security issues detected!")
+
+          EOF

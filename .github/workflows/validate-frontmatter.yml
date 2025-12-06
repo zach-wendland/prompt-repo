@@ -1,0 +1,171 @@
+name: Validate Prompt Frontmatter
+
+on:
+  pull_request:
+    paths:
+      - '**.txt'
+      - '**.md'
+  push:
+    branches:
+      - main
+    paths:
+      - '**.txt'
+      - '**.md'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    name: Validate YAML Frontmatter
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install pyyaml
+
+      - name: Validate frontmatter
+        run: |
+          python - <<'EOF'
+          import os
+          import sys
+          import yaml
+          import re
+          from pathlib import Path
+          from datetime import datetime
+
+          REQUIRED_FIELDS = [
+              'version', 'created', 'updated', 'category',
+              'tier', 'author', 'tags', 'model_compatibility'
+          ]
+
+          VALID_CATEGORIES = ['simple', 'work', 'agentic', 'fun', 'specialized', 'stocks']
+          VALID_TIERS = ['free', 'premium', 'enterprise']
+
+          errors = []
+          warnings = []
+
+          # Directories to check
+          prompt_dirs = ['simple', 'work-prompts', 'agentic', 'fun', 'stocks']
+
+          def extract_frontmatter(content):
+              """Extract YAML frontmatter from content"""
+              pattern = r'^---\s*\n(.*?)\n---\s*\n'
+              match = re.match(pattern, content, re.DOTALL)
+              if match:
+                  return match.group(1)
+              return None
+
+          def validate_date(date_str, field_name, file_path):
+              """Validate date format YYYY-MM-DD"""
+              try:
+                  datetime.strptime(date_str, '%Y-%m-%d')
+                  return True
+              except ValueError:
+                  errors.append(f"{file_path}: Invalid {field_name} date format '{date_str}' (expected YYYY-MM-DD)")
+                  return False
+
+          def validate_file(file_path):
+              """Validate a single prompt file"""
+              with open(file_path, 'r', encoding='utf-8') as f:
+                  content = f.read()
+
+              frontmatter_text = extract_frontmatter(content)
+
+              if not frontmatter_text:
+                  errors.append(f"{file_path}: Missing YAML frontmatter (should start and end with ---)")
+                  return
+
+              try:
+                  metadata = yaml.safe_load(frontmatter_text)
+              except yaml.YAMLError as e:
+                  errors.append(f"{file_path}: Invalid YAML syntax - {e}")
+                  return
+
+              if not isinstance(metadata, dict):
+                  errors.append(f"{file_path}: Frontmatter is not a valid YAML dictionary")
+                  return
+
+              # Check required fields
+              missing_fields = [field for field in REQUIRED_FIELDS if field not in metadata]
+              if missing_fields:
+                  errors.append(f"{file_path}: Missing required fields: {', '.join(missing_fields)}")
+
+              # Validate category
+              if 'category' in metadata and metadata['category'] not in VALID_CATEGORIES:
+                  errors.append(f"{file_path}: Invalid category '{metadata['category']}' (must be one of: {', '.join(VALID_CATEGORIES)})")
+
+              # Validate tier
+              if 'tier' in metadata and metadata['tier'] not in VALID_TIERS:
+                  errors.append(f"{file_path}: Invalid tier '{metadata['tier']}' (must be one of: {', '.join(VALID_TIERS)})")
+
+              # Validate dates
+              if 'created' in metadata:
+                  validate_date(str(metadata['created']), 'created', file_path)
+
+              if 'updated' in metadata:
+                  validate_date(str(metadata['updated']), 'updated', file_path)
+
+              # Check created <= updated
+              if 'created' in metadata and 'updated' in metadata:
+                  try:
+                      created = datetime.strptime(str(metadata['created']), '%Y-%m-%d')
+                      updated = datetime.strptime(str(metadata['updated']), '%Y-%m-%d')
+                      if created > updated:
+                          errors.append(f"{file_path}: 'created' date is after 'updated' date")
+                  except ValueError:
+                      pass  # Already caught by date validation
+
+              # Validate tags is a list
+              if 'tags' in metadata and not isinstance(metadata['tags'], list):
+                  errors.append(f"{file_path}: 'tags' must be a list")
+
+              # Validate model_compatibility is a list
+              if 'model_compatibility' in metadata and not isinstance(metadata['model_compatibility'], list):
+                  errors.append(f"{file_path}: 'model_compatibility' must be a list")
+
+              # Check version format (semver-like)
+              if 'version' in metadata:
+                  version_pattern = r'^\d+\.\d+\.\d+$'
+                  if not re.match(version_pattern, str(metadata['version'])):
+                      warnings.append(f"{file_path}: Version '{metadata['version']}' doesn't follow semver format (X.Y.Z)")
+
+          # Scan prompt directories
+          for directory in prompt_dirs:
+              dir_path = Path(directory)
+              if not dir_path.exists():
+                  continue
+
+              for file_path in dir_path.rglob('*'):
+                  if file_path.is_file() and file_path.suffix in ['.txt', '.md']:
+                      # Skip certain files
+                      if file_path.name in ['README.md', 'CHANGELOG.md', 'CONTRIBUTING.md',
+                                           'SECURITY_POLICY.md', 'CLAUDE.md', 'AGENTS.md',
+                                           'PROMPT_GUIDELINES.md', 'copilot_settings.md']:
+                          continue
+
+                      validate_file(str(file_path))
+
+          # Report results
+          if warnings:
+              print("\n⚠️  WARNINGS:")
+              for warning in warnings:
+                  print(f"  - {warning}")
+
+          if errors:
+              print("\n❌ ERRORS:")
+              for error in errors:
+                  print(f"  - {error}")
+              print(f"\n💥 Validation failed with {len(errors)} error(s)")
+              sys.exit(1)
+          else:
+              print("\n✅ All prompt files have valid frontmatter!")
+              if warnings:
+                  print(f"   ({len(warnings)} warning(s))")
+          EOF

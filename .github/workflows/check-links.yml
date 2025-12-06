@@ -1,0 +1,115 @@
+name: Check Broken Links
+
+on:
+  pull_request:
+    paths:
+      - '**.md'
+  push:
+    branches:
+      - main
+  schedule:
+    # Run weekly on Mondays at 9 AM UTC
+    - cron: '0 9 * * 1'
+
+jobs:
+  check-links:
+    runs-on: ubuntu-latest
+    name: Validate Internal References
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check internal markdown links
+        run: |
+          python - <<'EOF'
+          import os
+          import re
+          import sys
+          from pathlib import Path
+
+          broken_links = []
+          warnings = []
+
+          def extract_links(content, file_path):
+              """Extract markdown links from content"""
+              # Pattern for [text](link)
+              pattern = r'\[([^\]]+)\]\(([^\)]+)\)'
+              matches = re.finditer(pattern, content)
+
+              links = []
+              for match in matches:
+                  text = match.group(1)
+                  link = match.group(2)
+                  links.append((text, link, match.start()))
+
+              return links
+
+          def resolve_link(source_file, link):
+              """Resolve relative link from source file"""
+              source_dir = Path(source_file).parent
+
+              # Skip external links
+              if link.startswith('http://') or link.startswith('https://'):
+                  return None
+
+              # Skip anchors only
+              if link.startswith('#'):
+                  return None
+
+              # Remove anchor from link
+              link_path = link.split('#')[0]
+              if not link_path:
+                  return None
+
+              # Resolve relative path
+              resolved = (source_dir / link_path).resolve()
+              return resolved
+
+          def check_file(file_path):
+              """Check all links in a markdown file"""
+              with open(file_path, 'r', encoding='utf-8') as f:
+                  content = f.read()
+
+              links = extract_links(content, file_path)
+
+              for text, link, pos in links:
+                  resolved = resolve_link(file_path, link)
+
+                  if resolved is None:
+                      continue  # External link or anchor only
+
+                  if not resolved.exists():
+                      line_num = content[:pos].count('\n') + 1
+                      broken_links.append({
+                          'file': str(file_path),
+                          'line': line_num,
+                          'text': text,
+                          'link': link,
+                          'resolved': str(resolved)
+                      })
+
+          # Check all markdown files
+          for md_file in Path('.').rglob('*.md'):
+              # Skip .git directory
+              if '.git' in str(md_file):
+                  continue
+
+              check_file(md_file)
+
+          # Report results
+          if broken_links:
+              print("🔗 BROKEN INTERNAL LINKS DETECTED:\n")
+              for link in broken_links:
+                  print(f"  {link['file']}:{link['line']}")
+                  print(f"    Text: '{link['text']}'")
+                  print(f"    Link: {link['link']}")
+                  print(f"    Resolved to: {link['resolved']} (NOT FOUND)")
+                  print()
+
+              print(f"\n💥 Found {len(broken_links)} broken link(s)")
+              sys.exit(1)
+          else:
+              print("✅ All internal links are valid!")
+
+          EOF
