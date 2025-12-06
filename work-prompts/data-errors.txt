@@ -1,3 +1,24 @@
+---
+version: 1.0.0
+created: 2025-10-27
+updated: 2025-12-05
+category: work
+tier: free
+author: zach-wendland
+tags: [data-cleaning, json, data-quality, deduplication, normalization]
+model_compatibility: [all]
+---
+
+# Data Anomaly Resolution
+
+## Description
+Systematic prompt for identifying and resolving data anomalies including missing values, inconsistencies, and duplicates with JSON output.
+
+## Use Case
+For data analysts and engineers who need to clean and normalize datasets, particularly when preparing data for import or analysis.
+
+## Instructions
+
 For each of data points, identify and resolve the data anomalies. Specifically, follow these guidelines:
 
 1. **Missing Values**:

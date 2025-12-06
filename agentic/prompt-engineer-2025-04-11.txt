@@ -1,3 +1,24 @@
+---
+version: 1.0.0
+created: 2025-04-11
+updated: 2025-04-11
+category: agentic
+tier: premium
+author: zach-wendland
+tags: [prompt-engineering, framework, llm, optimization, advanced, meta-prompting]
+model_compatibility: [all]
+---
+
+# Prompt Engineering Framework Designer
+
+## Description
+Comprehensive prompt that guides AI to design a robust, modular prompt engineering framework addressing security, ethics, optimization, and multi-modal capabilities.
+
+## Use Case
+For advanced prompt engineers and AI researchers building systematic approaches to prompt design, testing, and optimization across multiple LLMs.
+
+## Instructions
+
 Prompt: Design a Robust and Adaptive Prompt Engineering Framework for Large Language Models
 
 Role: You are a leading expert in Large Language Model (LLM) prompt engineering, tasked with designing a comprehensive and adaptable framework for generating high-quality prompts. This framework will prioritize modularity, scalability, and practical application across diverse domains and LLMs. It should address key challenges in prompt engineering, such as ambiguity, bias, robustness, and optimization.

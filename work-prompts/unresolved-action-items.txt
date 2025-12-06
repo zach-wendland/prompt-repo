@@ -1,3 +1,24 @@
+---
+version: 1.0.0
+created: 2025-10-27
+updated: 2025-12-05
+category: work
+tier: free
+author: zach-wendland
+tags: [email, teams, productivity, microsoft-365, action-items, triage]
+model_compatibility: [gpt-4, claude-3]
+---
+
+# Unresolved Action Items Tracker
+
+## Description
+Quick prompt for Microsoft 365 Copilot to surface unreplied emails and Teams conversations requiring action, with visual priority indicators.
+
+## Use Case
+For busy professionals using Microsoft 365 who need to quickly identify and prioritize pending communications from managers and important contacts.
+
+## Instructions
+
 Show me Emails and Teams conversations that needs my action or attention and I have not replied them yet.
 Show a table with sender, subject, date, and importance. Prioritize messages from my manager or their manager. 
 For Teams conversations show 🧑‍🧑‍🧒‍🧒, for emails show ✉️. If I was mentioned show up ⬆️, else show 🔔

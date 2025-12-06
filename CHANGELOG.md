@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- `SECURITY_POLICY.md` - Comprehensive security and ethical use guidelines
+- `CLAUDE.md` - Claude Code guidance for working in this repository
+- `AGENTS.md` - Agent configuration documentation
+
+### Changed
+- File naming standardization: Added `.txt` extensions to `prompt-engineer-2025-04-11` and `company-investigator`
+- Moved `/jailbreaks` directory to `jailbreaks-archive` branch for security research purposes only
+- Updated repository structure to remove jailbreak content from production branch
+
+### Security
+- Quarantined jailbreak content to separate branch for authorized security research only
+- Implemented comprehensive security policy
+- Added content review guidelines
+
 ### Planned
 - Web application platform
 - Subscription management system
@@ -29,7 +44,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `EXECUTIVE_SUMMARY.md` - High-level strategic overview
 
 - **Policy & Guidelines:**
-  - `SECURITY_POLICY.md` - Ethical use guidelines and safety standards
   - `CONTRIBUTING.md` - Contribution guidelines and process
   - `PROMPT_GUIDELINES.md` - Quality standards and best practices
   - `CHANGELOG.md` - This file
@@ -38,16 +52,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Metadata structure for all prompts
   - Version control system
   - Tier classification system
-
-### Removed
-- `/jailbreaks` directory - Removed due to intellectual property and ethical concerns
-  - Contained leaked system prompts from commercial AI providers
-  - See `SECURITY_POLICY.md` for detailed reasoning
-  - Removed files:
-    - `copilot-20241215`
-    - `got-prompt-optimizer-20251016`
-    - `gpt-clear-answers-20250918`
-    - `gpt5-20250819`
 
 ### Changed
 - Repository focus: From general collection to professional/enterprise emphasis
@@ -97,8 +101,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 **Stocks (1):**
 - `company-investigator`
 
-**Jailbreaks (4):** [REMOVED in v2.0.0]
-- Removed for security and IP concerns
+**Jailbreaks (7):** [ARCHIVED - moved to jailbreaks-archive branch]
+- Quarantined for security and ethical concerns
+- Available only for authorized security research
 
 ### Repository Setup
 - MIT License
@@ -200,6 +205,6 @@ Example:
 
 ---
 
-**Last Updated:** October 27, 2025
+**Last Updated:** December 5, 2025
 **Current Version:** 2.0.0
-**Next Planned Release:** 2.1.0 (November 2025)
+**Next Planned Release:** 2.1.0 (Q1 2026)
