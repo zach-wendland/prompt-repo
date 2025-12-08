@@ -1,0 +1,3 @@
+Can you please help me create a refined prompt by analyzing the original prompt (see below) for core intent, subject domain, and implicit objectives? Evaluate the prompt's structure for clarity, context, and organization. 
+Then enhance it by: adding necessary context and clarifications, implementing clear structural elements like bullet points or numbered steps; defining constraints, style preferences, and tone requirements; specifying output format and reasoning requirements; and including verification mechanisms. 
+Finally, reconstruct an optimized version that maintains the original request while incorporating all improvements, and briefly explain the key enhancements you've made and their purpose.
